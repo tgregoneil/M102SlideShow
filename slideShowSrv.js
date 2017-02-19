@@ -21,7 +21,7 @@ _.init = () => {
         isSecure: false};
         //isSecure: true};
 
-    _.ws = new _.ws (8765, _.action, options);
+    _.ws = new _.ws (8001, _.action, options);
 
     _.toClient = _.ws.toClient;
 
