@@ -188,7 +188,7 @@ _.displayPngFiles = (vals) => {
         var caption = matched [2];
 
         var divOb = {div: [
-            {img: 0, src: val, alt: 'image is still uploading ... \njust a minute or two longer depending on your network bandwidth'},
+            {img: 0, src: val, alt: 'image is still uploading ... just a minute or two longer depending on your network bandwidth'},
             {br:0},
             {span: '    ' + loc, class: 'locheader'},
             {br:0},
