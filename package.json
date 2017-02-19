@@ -1,0 +1,22 @@
+{
+  "name": "SlideShow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index0.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "readme": "readme.md",
+  "homepage": "https://github.com/tgregoneil/REPO",
+  "repository": {
+    "url": "git+ssh://github.com/tgregoneil/REPO.git",
+    "type": "git"
+  },
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/tgregoneil/REPO/issues"
+  }
+}

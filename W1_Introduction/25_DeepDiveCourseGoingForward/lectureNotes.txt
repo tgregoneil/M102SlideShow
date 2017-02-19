@@ -1,0 +1,13 @@
+Lecture Notes
+
+This video covers the course, in particular, MongoDB Deployments:
+
+Standalone Deployment
+Simplest MongoDB deployment: just one server. No redundancy, no scalings
+Replica Set Deployment
+Provides durability and availability
+This involves replicating data to other servers, which can take over if the primary server goes down.
+Sharded Cluster Deployment
+Involves spreading your data across multiple "shards"
+Each shard is its own replica set deployment.
+Not only provides durability and availability, but it also scales.
