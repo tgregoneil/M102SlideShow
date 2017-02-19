@@ -1,6 +1,6 @@
 {
   "name": "SlideShow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index0.js",
   "scripts": {
@@ -10,13 +10,20 @@
   "author": "",
   "license": "ISC",
   "readme": "readme.md",
-  "homepage": "https://github.com/tgregoneil/REPO",
+  "homepage": "https://github.com/tgregoneil/go-M102SlideShow",
   "repository": {
-    "url": "git+ssh://github.com/tgregoneil/REPO.git",
+    "url": "git+ssh://github.com/tgregoneil/go-M102SlideShow.git",
     "type": "git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "go-ws-client": "*",
+    "go-key": "*",
+    "go-json2html": "*",
+    "go-popinfo": "*",
+    "go-ws-server": "*",
+    "key1": "*"
+  },
   "bugs": {
-    "url": "https://github.com/tgregoneil/REPO/issues"
+    "url": "https://github.com/tgregoneil/go-M102SlideShow/issues"
   }
 }

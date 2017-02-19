@@ -4,7 +4,7 @@ Slide show created from taking screenshots of the course videos.
 
 ### Sample slide
 
-![rendered](https://raw.githubusercontent.com/tgregoneil/go-key/master/keyDnStat.png) 
+![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/sampleSlide.png?raw=true) 
 
-### To try it, click <a href: >here</a>
+### To try it, click <a href="http://htmlpreview.github.io/?https://github.com/tgregoneil/M102SlideShow/blob/master/index.html">here</a>
 
