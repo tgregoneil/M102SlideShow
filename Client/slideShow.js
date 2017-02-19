@@ -183,7 +183,7 @@ _.displayPngFiles = (vals) => {
 
         var val = vals [i];
         
-        var matched = val.match (/..(.*)\/.*?([a-zA-Z].*).png/);
+        var matched = val.match (/...(.*)\/.*?([a-zA-Z].*).png/);
         var loc = matched [1];
         var caption = matched [2];
 
