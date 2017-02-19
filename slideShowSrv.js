@@ -17,9 +17,8 @@ var _ = {
 _.init = () => {
     
     var options = {doEncryption: false,
-        verbose: true,
+        verbose: false,
         isSecure: false};
-        //isSecure: true};
 
     _.ws = new _.ws (8001, _.action, options);
 
