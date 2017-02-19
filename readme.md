@@ -6,5 +6,5 @@ Slide show created from taking screenshots of the course videos.
 
 ![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/sampleSlide.png?raw=true) 
 
-### To try it, click <a href="http://htmlpreview.github.io/?https://github.com/tgregoneil/M102SlideShow/blob/master/index.html">here</a>
+### To try it, click <a href="http://htmlpreview.github.io/?https://github.com/tgregoneil/M102SlideShow/blob/master/Client/index.html">here</a>
 
