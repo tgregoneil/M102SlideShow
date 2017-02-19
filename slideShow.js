@@ -23,7 +23,7 @@ var _ = {
     idNav: null,
     idPageCt: null,
     idNavPN:null,
-    srvAws: '52.42.117.71'
+    srvAws: '52.33.170.21'
 
 }; // end PRIVATE properties
 
@@ -356,19 +356,19 @@ _.layout = () => {
 
     _.IdHelp = '#' + idHelp;
 
-    _.idSlides = _.dpp ({div: 0, class: 'row div700', parent: idContainer});
+    _.idSlides = _.dpp ({div: 0, name: 'slides', class: 'row div700', parent: idContainer});
 
-    var idNav = _.dpp ({div:0, class: 'row div700', parent: idContainer});
+    var idNav = _.dpp ({div:0, name: 'nav', class: 'row div700', parent: idContainer});
 
     var idPgCtDiv = _.dpp ({div:0, class: 'col-sm-10', parent: idNav});
 
     _.idPageCt = _.dpp ({span: 0, parent: idPgCtDiv, class: 'pagect'});
     _.idNavPN = _.dpp ({div:0, class: 'col-sm-2', parent: idNav});
     
-    var idTopicRows = _.dpp ({div:0, parent: idContainer, style: 'top: -40px;', class: 'div700'});
+    var idTopicRows = _.dpp ({div:0, name: 'topicRows', parent: idContainer, style: 'top: -40px;', class: 'div700'});
 
-    var idRow1 = _.dpp ({div: 0, class: 'row topicrows', parent: idTopicRows})
-    var idRow2 = _.dpp ({div: 0, class: 'row topicrows', parent: idTopicRows})
+    var idRow1 = _.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: idTopicRows})
+    var idRow2 = _.dpp ({div: 0, name: 'topicRows2', class: 'row topicrows', parent: idTopicRows})
 
     _.makeCols (0, idRow1);
     _.makeCols (4, idRow2);
