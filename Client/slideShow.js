@@ -188,7 +188,7 @@ _.displayPngFiles = (vals) => {
         var caption = matched [2];
 
         var divOb = {div: [
-            {img: 0, src: val},
+            {img: 0, src: val, alt: 'image is still uploading ... just a minute or two longer'},
             {br:0},
             {span: '    ' + loc, class: 'locheader'},
             {br:0},
@@ -461,6 +461,9 @@ P.doAction = (msgOb) => {
             break;
 
         case 'pngFiles':
+
+            $('body')
+            .empty ();
 
             _.doSlideShow (vals);
             
