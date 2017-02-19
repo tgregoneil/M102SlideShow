@@ -59,7 +59,7 @@ _.initStyle = () => {
             "text-align: center;" +
             "background-color: white;" +
             "max-width: 500px;" +
-            "word-break: break-word;" +
+            "word-break: break-all;" +
             "left: 0;" +
             "right: 0;" +
             "margin: 0 auto;" +
