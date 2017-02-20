@@ -70,8 +70,7 @@ _.initStyle = () => {
             "font-size: 15px;" +
             "border: 1px solid black;" +
             "border-radius: 8px;" +
-            "position: absolute;" +
-            "right: 0;" +
+            "float: right;" +
             "background-color: #0e0;" +
             "font-weight: bold;" +
         "}" +
