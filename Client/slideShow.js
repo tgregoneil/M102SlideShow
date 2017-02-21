@@ -36,7 +36,7 @@ _.init = () => {
 
     var  gt = window.location.href;
 
-    //var ipSrc = gt.match (/(file)|(localhost)/) ? '0.0.0.0' : _.srvAws;
+    var ipSrc = gt.match (/github/) ? _.srvAws : 'localhost';
     var ipSrc = _.srvAws;
     _.ws = new _.ws (ipSrc, 8001, P.doAction);
 
