@@ -81,8 +81,12 @@ _.initStyle = () => {
             "position: relative;" +
             "width: 700px;" +
         "}" +
-        "img {" +
+        ".imgvideo {" +
             "height: 500px;" +
+            "width: 700px;" +
+        "}" +
+        ".imghomework {" +
+            "height: 800px;" +
             "width: 700px;" +
         "}" +
         ".cols {" +
@@ -185,8 +189,10 @@ _.displayPngFiles = (vals) => {
         var loc = matched [1];
         var caption = matched [2];
 
+        var imgClass = loc.match (/Homework|10Questions/) ? 'imghomework' : 'imgvideo';
+
         var divOb = {div: [
-            {img: 0, src: val, alt: 'image is still uploading ... just a minute or two longer depending on your network bandwidth'},
+            {img: 0, src: val, class: imgClass, alt: 'image is still uploading ... just a minute or two longer depending on your network bandwidth'},
             {br:0},
             {span: '    ' + loc, class: 'locheader'},
             {br:0},
