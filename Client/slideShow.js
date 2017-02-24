@@ -340,6 +340,8 @@ _.doSlideShow = (vals) => {
         'Click to navigate directly\nto beginning of topic');
     _.pi.createPopupDisplay (_.idCurSlide, 
         'Current slide In topic/\nTotal slides in topic');
+    _.pi.createPopupDisplay (_.idVideo, 
+        'Click to start\nplaying lesson video');
 
     $(_.IdHelp)
     .hover (function () {
