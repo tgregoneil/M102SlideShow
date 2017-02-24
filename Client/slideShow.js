@@ -22,7 +22,11 @@ var _ = {
     topicRef: null,
     idNav: null,
     idPageCt: null,
-    idNavPN:null,
+    idNavPN: null,
+    topicToVideo: null,
+    slideToVideo: null,
+    hiddenSlide: null,
+    idVideoPlaying: null,
     srvAws: '52.33.170.21'
 
 }; // end PRIVATE properties
@@ -77,8 +81,16 @@ _.initStyle = () => {
             "text-align: center;" +
             "position: relative;" +
         "}" +
-        ".div700 {" +
+        ".m10 {" +
+            "margin: 10px;" +
+        "}" +
+        ".t40 {" +
+            "top: -40px;" +
+        "}" +
+        ".prel {" +
             "position: relative;" +
+        "}" +
+        ".w700 {" +
             "width: 700px;" +
         "}" +
         ".imgvideo {" +
@@ -100,14 +112,16 @@ _.initStyle = () => {
             "font-size: 30px;" +
             "font-weight: 900;" +
             "margin-left: 10px;" + 
-            "position: relative;" +
-            "float: right;" +
-            "top: -40px;" +
+            "display: inline-block;" +
         "}" +
-        ".pagect {" +
-            "top: -40px;" +
-            "position: relative;" +
+        ".navpos {" +
             "float: right;" +
+        "}" +
+        ".video {" +
+            "font-weight: bold;" +
+            "color: blue;" +
+            "margin-right: 30px;" +
+            "background-color: white;" +
         "}" +
         ".ref {" +
             "width: initial;" +
@@ -133,8 +147,8 @@ _.initStyle = () => {
 //---------------------
 _.displayNav = () => {
     
-    var navSpans = [{span: '>', id: 'navr', class: 'nav'}, 
-    {span: '<', id: 'navl', class: 'nav'}];
+    var navSpans = [{span: '<', id: 'navr', class: 'nav'}, 
+    {span: '>', id: 'navl', class: 'nav'}];
 
     navSpans.parent = _.idNavPN;
 
@@ -180,6 +194,7 @@ _.displayPngFiles = (vals) => {
     _.ctI = [];
     _.topicsI = [];
     _.topicRefs = [];
+    _.slideToVideo = [];
 
     for (var i = 0; i < _.maxImages; i++) {
 
@@ -189,7 +204,7 @@ _.displayPngFiles = (vals) => {
         var loc = matched [1];
         var caption = matched [2];
 
-        var imgClass = loc.match (/Homework|10Questions/) ? 'imghomework' : 'imgvideo';
+        var imgClass = loc.match (/Homework|Final/) ? 'imghomework' : 'imgvideo';
 
         var divOb = {div: [
             {img: 0, src: val, class: imgClass, alt: 'image is still uploading ... just a minute or two longer depending on your network bandwidth'},
@@ -198,7 +213,7 @@ _.displayPngFiles = (vals) => {
             {br:0},
             {br:0},
             {span: caption, class: 'caption'}
-        ], id: 'j' + i, class: 'div700'};
+        ], id: 'j' + i};
 
         if (i !== 0) {
 
@@ -214,6 +229,9 @@ _.displayPngFiles = (vals) => {
         var wid = 'W' + matched [1];
         var week = wid + matched [2];
         var topic = matched [3];
+
+        var videoTopic = wid + '-' + topic;
+        _.slideToVideo.push (_.topicToVideo [videoTopic]);
 
         if (!weeks.hasOwnProperty (week)) {
 
@@ -267,7 +285,7 @@ _.displayRef = (wid, str, i, className) => {
          id: ref, 
          sl: i, 
          style: 'display:inline-block;'
-     }, parent: wid, class: 'ref div700 ' + className});
+     }, parent: wid, class: 'ref w700 ' + className});
 
     ref = '#' + ref;
     $(ref)
@@ -303,6 +321,18 @@ _.doSlideShow = (vals) => {
     _.layout ();
     _.displayNav ();
     _.displayPngFiles (vals);
+
+    $(_.idVideo)
+    .hover (function () {
+        $(this)
+        .attr ({style: 'color: red;'})
+    },
+    function () {
+        $(this)
+        .attr ({style: 'color: blue'})
+    })
+    .click (_.playVideo);
+
     _.pi.createPopupDisplay ('#navr', 
         'Click Prev/Next Slide\n    -- or --\n(keyboard shortcuts)\nLeft/Right Arrow\nSpace/Backspace');
     _.pi.createPopupDisplay (_.idSampleTopic, 
@@ -312,12 +342,12 @@ _.doSlideShow = (vals) => {
 
     $(_.IdHelp)
     .hover (function () {
-        $(_.IdHelp)
+        $(this)
         .css ({'background-color': '#ffa0a0'});
 
         _.pi.showPopups ();
     }, function () {
-        $(_.IdHelp)
+        $(this)
         .css ({'background-color': '#0e0'});
 
         _.pi.hidePopups ();
@@ -347,7 +377,7 @@ _.keyFilter = (chob) => {
 //---------------------
 _.layout = () => {
 
-    var idContainer = _.dpp ({div: 0, class: 'container', style: 'width: auto; margin: 10px;', class: 'div700'});
+    var idContainer = _.dpp ({div: 0, class: 'w700 m10'});
 
     var idHelp = _.genId ();
     _.dpp ({div: 
@@ -355,22 +385,26 @@ _.layout = () => {
             'Slideshow M102: MongoDB for DBAs (Jan/Feb 2017)',
             {span: '?', id: idHelp, class: 'help'}
         ], class: 'header'}, 
-        class: 'row div700', 
+        class: 'row w700', 
         parent: idContainer}
     );
 
     _.IdHelp = '#' + idHelp;
 
-    _.idSlides = _.dpp ({div: 0, name: 'slides', class: 'row div700', parent: idContainer});
+    _.idSlides = _.dpp ({div: 0, name: 'slides', class: 'row w700 prel', parent: idContainer});
 
-    var idNav = _.dpp ({div:0, name: 'nav', class: 'row div700', parent: idContainer});
+    var idNav = _.dpp ({div:0, name: 'nav', class: 'row w700 prel t40', parent: idContainer});
 
-    var idPgCtDiv = _.dpp ({div:0, class: 'col-sm-10', parent: idNav});
+    var idVideoDiv = _.dpp ({div:0, class: 'col-sm-7', parent: idNav});
+    _.idVideo = _.dpp ({span: 'Video', parent: idVideoDiv, class: 'navpos video'});
 
-    _.idPageCt = _.dpp ({span: 0, parent: idPgCtDiv, class: 'pagect'});
+    //var idPgCtDiv = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
+    //_.idPageCt = _.dpp ({span: 0, parent: idPgCtDiv, class: 'navpos'});
+    _.idPageCt = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
+
     _.idNavPN = _.dpp ({div:0, class: 'col-sm-2', parent: idNav});
     
-    var idTopicRows = _.dpp ({div:0, name: 'topicRows', parent: idContainer, style: 'top: -40px;', class: 'div700'});
+    var idTopicRows = _.dpp ({div:0, name: 'topicRows', parent: idContainer, class: 'w700 prel t40'});
 
     var idRow1 = _.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: idTopicRows})
     var idRow2 = _.dpp ({div: 0, name: 'topicRows2', class: 'row topicrows', parent: idTopicRows})
@@ -398,10 +432,58 @@ _.makeCols = (baseId, idRow) => {
 }; // end _.makeCols 
 
 
+//---------------------
+_.playVideo = () => {
+    
+    _.hiddenSlide = '#j' + _.curVis;
+
+    $(_.hiddenSlide + '> img')
+    .addClass ('novis');
+
+    $(_.hiddenSlide + '> .caption')
+    .addClass ('novis');
+
+    $(_.idVideo)
+    .text ('Slide')
+    .off ('click')
+    .click (_.restoreSlide);
+
+    var src = 'https://www.youtube.com/embed/' + _.slideToVideo [_.curVis] + '?autoplay=1';
+    _.idVideoPlaying = _.dpp ({iframe: 0, src: src, class: 'imgvideo', parent: _.hiddenSlide, prepend: 1});
+
+}; // end _.playVideo
+
+
+//---------------------
+_.restoreSlide = () => {
+    
+    $(_.idVideoPlaying)
+    .remove ();
+
+    $(_.hiddenSlide + '> img')
+    .removeClass ('novis');
+
+    $(_.hiddenSlide + '> .caption')
+    .removeClass ('novis');
+
+    $(_.idVideo)
+    .text ('Video')
+    .off ('click')
+    .click (_.playVideo);
+
+    _.hiddenSlide = null;
+
+}; // end _.restoreSlide
 
 //---------------------
 _.setNextVis = (delta) => {
 
+    if (_.hiddenSlide) {
+
+        _.restoreSlide ();
+
+    } // end if (_.hiddenSlide)
+    
     var mdelta = delta >= 0 ? delta : _.maxImages + delta
 
     var nextVis = (_.curVis + mdelta) % _.maxImages;
@@ -426,7 +508,7 @@ _.setNextVis = (delta) => {
     _.dpp ({empty: _.idPageCt});
     _.idCurSlide = _.dpp ({span: 'slide: ' + slideI + '/' + totalInSection, 
         parent: _.idPageCt,
-        style: 'float: right;'});
+        class: 'navpos'});
 
     $(_.topicRef)
     .css (
@@ -445,6 +527,30 @@ _.setNextVis = (delta) => {
 }; // end _.setNextVis 
 
 
+//---------------------
+_.topicToVideoId = (aTagA) => {
+    
+    _.topicToVideo = {};
+    for (var i = 0; i < aTagA.length; i++) {
+
+        var aTag = aTagA [i];
+        var m = aTag.match (/.*youtu.be.([^"]+)">([^<]+)</);
+        if (m) {
+
+            var videoId = m [1];
+            var topic = m [2];
+
+            _.topicToVideo [topic] = videoId;
+
+        } // end if (m)
+        
+
+    } // end for (var i = 0; i < aTagA; i++)
+    
+
+}; // end _.topicToVideoId 
+
+
 
 // PUBLIC Properties/Methods
 var P = {};
@@ -461,6 +567,12 @@ P.doAction = (msgOb) => {
         case 'ready':
 
             _.initStyle ();
+            _.ws.toSrvr ({getVideoLinks:1});
+            break;
+
+        case 'videoLinks':
+
+            _.topicToVideoId (vals);
             _.ws.toSrvr ({getPngFiles:1});
             break;
 
