@@ -113,6 +113,7 @@ _.initStyle = () => {
             "font-weight: 900;" +
             "margin-left: 10px;" + 
             "display: inline-block;" +
+            "float: right;" +
         "}" +
         ".navpos {" +
             "float: right;" +
@@ -147,8 +148,8 @@ _.initStyle = () => {
 //---------------------
 _.displayNav = () => {
     
-    var navSpans = [{span: '<', id: 'navr', class: 'nav'}, 
-    {span: '>', id: 'navl', class: 'nav'}];
+    var navSpans = [{span: '>', id: 'navr', class: 'nav'}, 
+    {span: '<', id: 'navl', class: 'nav'}];
 
     navSpans.parent = _.idNavPN;
 
@@ -398,11 +399,9 @@ _.layout = () => {
     var idVideoDiv = _.dpp ({div:0, class: 'col-sm-7', parent: idNav});
     _.idVideo = _.dpp ({span: 'Video', parent: idVideoDiv, class: 'navpos video'});
 
-    //var idPgCtDiv = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
-    //_.idPageCt = _.dpp ({span: 0, parent: idPgCtDiv, class: 'navpos'});
-    _.idPageCt = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
+    _.idPageCt = _.dpp ({div:0, class: 'col-sm-2', parent: idNav});
 
-    _.idNavPN = _.dpp ({div:0, class: 'col-sm-2', parent: idNav});
+    _.idNavPN = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
     
     var idTopicRows = _.dpp ({div:0, name: 'topicRows', parent: idContainer, class: 'w700 prel t40'});
 

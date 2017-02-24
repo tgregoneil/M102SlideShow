@@ -52,6 +52,14 @@ _.action = (wsId, msgOb) => {
 
             break;
 
+        case 'getVideoLinks':
+
+            var videoLinks = _.fs.readFileSync ('./videoLinks.html','utf8');
+            var videoLinksA = videoLinks.split ('\n');
+            _.toClient (wsId, {videoLinks: videoLinksA});
+
+            break;
+
     } // end switch (cmd)
     
 
