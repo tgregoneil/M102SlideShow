@@ -6,6 +6,11 @@ If the repository is downloaded for localhost use, nodejs must be installed. Run
 
 ### Sample slide
 
-![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/clickToPlayVideo.png?raw-true) 
+![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/sampleSlide.png?raw-true) 
+
+### Hover over the '?'
+
+![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/helpPopupTips.png?raw-true)
+
 ### To try it, click <a href="http://htmlpreview.github.io/?https://github.com/tgregoneil/M102SlideShow/blob/master/Client/index.html">here</a>
 
