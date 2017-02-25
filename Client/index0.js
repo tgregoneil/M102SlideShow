@@ -8,7 +8,7 @@ var _ = {
 }; // end PRIVATE properties
 
 _.init = () => {
-    
+
     var c = require ('./slideShow.js');
     new c ();
 };

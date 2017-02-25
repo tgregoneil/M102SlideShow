@@ -48,7 +48,7 @@ _.init = () => {
 
 //---------------------
 _.initStyle = () => {
-    
+
     var style = {style:
         "body {" +
             "margin-left: 15px;" +
@@ -111,7 +111,7 @@ _.initStyle = () => {
         ".nav {" +
             "font-size: 30px;" +
             "font-weight: 900;" +
-            "margin-left: 10px;" + 
+            "margin-left: 10px;" +
             "display: inline-block;" +
             "float: right;" +
         "}" +
@@ -141,14 +141,14 @@ _.initStyle = () => {
         parent: 'head'};
 
         _.dpp (style);
-      
+
 }; // end _.initStyle
 
 
 //---------------------
 _.displayNav = () => {
-    
-    var navSpans = [{span: '>', id: 'navr', class: 'nav'}, 
+
+    var navSpans = [{span: '>', id: 'navr', class: 'nav'},
     {span: '<', id: 'navl', class: 'nav'}];
 
     navSpans.parent = _.idNavPN;
@@ -184,7 +184,7 @@ _.displayNav = () => {
 
 //---------------------
 _.displayPngFiles = (vals) => {
-    
+
     _.curVis = 0;
     _.maxImages = vals.length - 1;
         // last val in vals is an empty string, so don't count it
@@ -200,7 +200,7 @@ _.displayPngFiles = (vals) => {
     for (var i = 0; i < _.maxImages; i++) {
 
         var val = vals [i];
-        
+
         var matched = val.match (/...(.*)\/.*?([a-zA-Z].*).png/);
         var loc = matched [1];
         var caption = matched [2];
@@ -253,7 +253,7 @@ _.displayPngFiles = (vals) => {
                 _.idSampleTopic = dispRef;
 
             } // end if (topic === '01_WelcomeWeek3')
-        
+
             topics [topic] = 1;
 
             slideCount = 1;
@@ -265,26 +265,26 @@ _.displayPngFiles = (vals) => {
             _.topicsI [_.topicsI.length - 1] = slideCount;
 
         } // end if (!topics.hasOwnProperty (topic))
-        
+
         _.ctI.push ([slideCount, _.topicsI.length - 1]);
-        
+
 
     } // end for (var i = 0; i < vals; i++)
 
     _.setNextVis (0);
 
-}; // end _.displayPngFiles 
+}; // end _.displayPngFiles
 
 
 //---------------------
 _.displayRef = (wid, str, i, className) => {
-    
+
     wid = '#' + wid;
     var ref = _.genId ();
-    _.dpp ({div: 
-        {div: str, 
-         id: ref, 
-         sl: i, 
+    _.dpp ({div:
+        {div: str,
+         id: ref,
+         sl: i,
          style: 'display:inline-block;'
      }, parent: wid, class: 'ref w700 ' + className});
 
@@ -313,7 +313,7 @@ _.displayRef = (wid, str, i, className) => {
 
     return ref;
 
-}; // end _.displayRef 
+}; // end _.displayRef
 
 
 //---------------------
@@ -334,13 +334,13 @@ _.doSlideShow = (vals) => {
     })
     .click (_.playVideo);
 
-    _.pi.createPopupDisplay ('#navr', 
+    _.pi.createPopupDisplay ('#navr',
         'Click Prev/Next Slide\n    -- or --\n(keyboard shortcuts)\nLeft/Right Arrow\nSpace/Backspace');
-    _.pi.createPopupDisplay (_.idSampleTopic, 
+    _.pi.createPopupDisplay (_.idSampleTopic,
         'Click to navigate directly\nto beginning of topic');
-    _.pi.createPopupDisplay (_.idCurSlide, 
+    _.pi.createPopupDisplay (_.idCurSlide,
         'Current slide In topic/\nTotal slides in topic');
-    _.pi.createPopupDisplay (_.idVideo, 
+    _.pi.createPopupDisplay (_.idVideo,
         'Click to start\nplaying lesson video');
 
     $(_.IdHelp)
@@ -356,7 +356,7 @@ _.doSlideShow = (vals) => {
         _.pi.hidePopups ();
     });
 
-}; // end _.doSlideShow 
+}; // end _.doSlideShow
 
 //---------------------
 _.keyFilter = (chob) => {
@@ -374,7 +374,7 @@ _.keyFilter = (chob) => {
     } // end if (chob.ch === 'Right')
 
 
-}; // end _.keyFilter 
+}; // end _.keyFilter
 
 
 //---------------------
@@ -383,12 +383,12 @@ _.layout = () => {
     var idContainer = _.dpp ({div: 0, class: 'w700 m10'});
 
     var idHelp = _.genId ();
-    _.dpp ({div: 
+    _.dpp ({div:
         {h4: [
             'Slideshow M102: MongoDB for DBAs (Jan/Feb 2017)',
             {span: '?', id: idHelp, class: 'help'}
-        ], class: 'header'}, 
-        class: 'row w700', 
+        ], class: 'header'},
+        class: 'row w700',
         parent: idContainer}
     );
 
@@ -404,7 +404,7 @@ _.layout = () => {
     _.idPageCt = _.dpp ({div:0, class: 'col-sm-2', parent: idNav});
 
     _.idNavPN = _.dpp ({div:0, class: 'col-sm-3', parent: idNav});
-    
+
     var idTopicRows = _.dpp ({div:0, name: 'topicRows', parent: idContainer, class: 'w700 prel t40'});
 
     var idRow1 = _.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: idTopicRows})
@@ -418,7 +418,7 @@ _.layout = () => {
 
 //---------------------
 _.makeCols = (baseId, idRow) => {
-    
+
     var cols = [];
     for (var i = 0; i < 4; i++) {
 
@@ -430,12 +430,12 @@ _.makeCols = (baseId, idRow) => {
 
     _.dpp (cols);
 
-}; // end _.makeCols 
+}; // end _.makeCols
 
 
 //---------------------
 _.playVideo = () => {
-    
+
     _.hiddenSlide = '#j' + _.curVis;
 
     $(_.hiddenSlide + '> img')
@@ -457,7 +457,7 @@ _.playVideo = () => {
 
 //---------------------
 _.restoreSlide = () => {
-    
+
     $(_.idVideoPlaying)
     .remove ();
 
@@ -484,11 +484,11 @@ _.setNextVis = (delta) => {
         _.restoreSlide ();
 
     } // end if (_.hiddenSlide)
-    
+
     var mdelta = delta >= 0 ? delta : _.maxImages + delta
 
     var nextVis = (_.curVis + mdelta) % _.maxImages;
-    
+
     var idPrev = '#j' + _.curVis;
     var idNext = '#j' + nextVis;
 
@@ -507,7 +507,7 @@ _.setNextVis = (delta) => {
     var totalInSection = _.topicsI [topicIdx];
 
     _.dpp ({empty: _.idPageCt});
-    _.idCurSlide = _.dpp ({span: 'slide: ' + slideI + '/' + totalInSection, 
+    _.idCurSlide = _.dpp ({span: 'slide: ' + slideI + '/' + totalInSection,
         parent: _.idPageCt,
         class: 'navpos'});
 
@@ -525,12 +525,12 @@ _.setNextVis = (delta) => {
         'font-weight': 'bold'}
     );
 
-}; // end _.setNextVis 
+}; // end _.setNextVis
 
 
 //---------------------
 _.topicToVideoId = (aTagA) => {
-    
+
     _.topicToVideo = {};
     for (var i = 0; i < aTagA.length; i++) {
 
@@ -544,12 +544,12 @@ _.topicToVideoId = (aTagA) => {
             _.topicToVideo [topic] = videoId;
 
         } // end if (m)
-        
+
 
     } // end for (var i = 0; i < aTagA; i++)
-    
 
-}; // end _.topicToVideoId 
+
+}; // end _.topicToVideoId
 
 
 
@@ -559,7 +559,7 @@ var P = {};
 //---------------------
 P.doAction = (msgOb) => {
     console.log ('msgOb: ' + JSON.stringify (msgOb) + '\n');
-    
+
     var cmd = _.key1 (msgOb);
     var vals = msgOb [cmd];
 
@@ -583,14 +583,14 @@ P.doAction = (msgOb) => {
             .empty ();
 
             _.doSlideShow (vals);
-            
+
             break;
 
     } // end switch (cmd)
-    
-    
 
-}; // end P.doAction 
+
+
+}; // end P.doAction
 
 
 // end PUBLIC section
