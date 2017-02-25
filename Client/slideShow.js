@@ -76,6 +76,8 @@ _.initStyle = () => {
             "float: right;" +
             "background-color: #0e0;" +
             "font-weight: bold;" +
+            "cursor: pointer;" +
+            "cursor: hand;" +
         "}" +
         ".header {" +
             "text-align: center;" +
@@ -92,6 +94,7 @@ _.initStyle = () => {
         "}" +
         ".w700 {" +
             "width: 700px;" +
+            "margin: 0 auto;" +
         "}" +
         ".imgvideo {" +
             "height: 500px;" +
@@ -114,6 +117,8 @@ _.initStyle = () => {
             "margin-left: 10px;" +
             "display: inline-block;" +
             "float: right;" +
+            "cursor: pointer;" +
+            "cursor: hand;" +
         "}" +
         ".navpos {" +
             "float: right;" +
@@ -123,6 +128,8 @@ _.initStyle = () => {
             "color: blue;" +
             "margin-right: 30px;" +
             "background-color: white;" +
+            "cursor: pointer;" +
+            "cursor: hand;" +
         "}" +
         ".ref {" +
             "width: initial;" +
@@ -131,6 +138,10 @@ _.initStyle = () => {
         "}" +
         ".topicrows {" +
             "margin-bottom: 20px;" +
+        "}" +
+        ".row.topicrows > div {" +
+            "border: 1px solid #ccc;" +
+            "padding-right: 1px;" +
         "}" +
         ".locheader {" +
             "color: red;" +
@@ -285,7 +296,7 @@ _.displayRef = (wid, str, i, className) => {
         {div: str,
          id: ref,
          sl: i,
-         style: 'display:inline-block;'
+         style: 'display:inline-block; cursor: pointer; cursor: hand;'
      }, parent: wid, class: 'ref w700 ' + className});
 
     ref = '#' + ref;
