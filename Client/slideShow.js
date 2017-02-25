@@ -421,17 +421,17 @@ _.layout = () => {
     var idRow1 = _.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: idTopicRows})
     var idRow2 = _.dpp ({div: 0, name: 'topicRows2', class: 'row topicrows', parent: idTopicRows})
 
-    _.makeCols (0, idRow1);
-    _.makeCols (4, idRow2);
+    _.makeCols (0, idRow1, 4);
+    _.makeCols (4, idRow2, 3);
 
 }; // end _.layout
 
 
 //---------------------
-_.makeCols = (baseId, idRow) => {
+_.makeCols = (baseId, idRow, numCols) => {
 
     var cols = [];
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < numCols; i++) {
 
         var id = 'W' + (i + 1 + baseId);
         //cols.push ({div:id + 'W1_Introductionsjsjsjsj', id: id, class: 'cols col-sm-3', parent: idRow});
