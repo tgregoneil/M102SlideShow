@@ -35,7 +35,8 @@ var _ = {
     slideToVideo: null,
     hiddenSlide: null,
     IdVideoPlaying: null,
-    srvAws: '52.33.170.21'
+    //srvAws: '52.33.170.21'
+    srvAws: '34.215.194.129'
 
 }; // end PRIVATE properties
 
