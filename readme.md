@@ -21,3 +21,5 @@ To add a bookmark, navigate to the desired slide and hover over the 'B'. If the 
 ![rendered](https://github.com/tgregoneil/M102SlideShow/blob/master/bookmarks.png?raw-true)
 
 
+
+### To try it, click <a href="http://htmlpreview.github.io/?https://github.com/tgregoneil/M102SlideShow/blob/master/Client/index.html">here</a>
