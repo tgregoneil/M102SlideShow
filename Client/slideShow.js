@@ -51,6 +51,7 @@ f.init = () => {
     var  gt = window.location.href;
 
     var ipSrc = gt.match (/github/) ? v.srvAws : 'localhost';
+    //var ipSrc = v.srvAws;
     v.ws = new v.ws (ipSrc, 8001, P.doAction);
 
     new v.key ('body', false, f.keyFilter);
