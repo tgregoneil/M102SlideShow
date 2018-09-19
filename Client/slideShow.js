@@ -780,8 +780,8 @@ var P = {};
 P.doAction = (msgOb) => {
     console.log ('msgOb: ' + JSON.stringify (msgOb) + '\n');
 
-    var cmd = v.key1 (msgOb.m);
-    var vals = msgOb.m [cmd];
+    var cmd = v.key1 (msgOb);
+    var vals = msgOb [cmd];
 
     switch (cmd) {
 
