@@ -3,7 +3,7 @@
 module.exports = function () {
 
 // PRIVATE Properties/Methods
-var _ = {
+var v = {
 
     ws: require ('go-ws-client'),
     key: require ('go-key'),
@@ -39,43 +39,44 @@ var _ = {
     srvAws: '34.215.194.129'
 
 }; // end PRIVATE properties
+var f={};
 
-_.init = () => {
+f.init = () => {
 
-    _.dpp = _.j2h.displayPage;
-    _.genId = _.j2h.genId;
+    v.dpp = v.j2h.displayPage;
+    v.genId = v.j2h.genId;
 
-    _.pi = new _.pi (_.j2h);
+    v.pi = new v.pi (v.j2h);
 
     var  gt = window.location.href;
 
-    var ipSrc = gt.match (/github/) ? _.srvAws : 'localhost';
-    _.ws = new _.ws (ipSrc, 8001, P.doAction);
+    var ipSrc = gt.match (/github/) ? v.srvAws : 'localhost';
+    v.ws = new v.ws (ipSrc, 8001, P.doAction);
 
-    new _.key ('body', false, _.keyFilter);
-};
+    new v.key ('body', false, f.keyFilter);
+};  // end f.init
 
 //---------------------
-_.initBookmarks = () => {
+f.initBookmarks = () => {
 
-    _.bookmarkLst = [];
-    _.bookmarksFromCookie ();
+    v.bookmarkLst = [];
+    f.bookmarksFromCookie ();
 
-    var id = _.genId ();
+    var id = v.genId ();
     var addB = {span: 'add bookmark', id: id, class: 'bookmark'};
-    _.IdAddB = '#' + id;
+    v.IdAddB = '#' + id;
 
-    var id = _.genId ();
+    var id = v.genId ();
     var delB = {span: 'del bookmark', id: id, class: 'bookmark'};
-    _.IdDelB = '#' + id;
+    v.IdDelB = '#' + id;
 
-    var id = _.genId ();
+    var id = v.genId ();
     var bookS = {div: 0, id: id};
-    _.IdBookS = '#' + id;
+    v.IdBookS = '#' + id;
 
-    _.IdBookmarkS = _.dpp ({div: [addB, delB, bookS], class: 'bookmarks novis', parent: _.IdBookmark});
+    v.IdBookmarkS = v.dpp ({div: [addB, delB, bookS], class: 'bookmarks novis', parent: v.IdBookmark});
 
-    $(_.IdAddB + ',' + _.IdDelB)
+    $(v.IdAddB + ',' + v.IdDelB)
     .hover (
         function () {
             $(this)
@@ -86,25 +87,25 @@ _.initBookmarks = () => {
             .css ({color: 'black'});
     });
 
-    $(_.IdAddB)
+    $(v.IdAddB)
     .click (function () {
-        _.bookmarks [_.curVis] = 1;
-        _.bookmarksToCookie ();
-        _.bookmarksShow ();
+        v.bookmarks [v.curVis] = 1;
+        f.bookmarksToCookie ();
+        f.bookmarksShow ();
     })
 
-    $(_.IdDelB)
+    $(v.IdDelB)
     .click (function () {
-        delete _.bookmarks [_.curVis];
-        _.bookmarksToCookie ();
-        _.bookmarksShow ();
+        delete v.bookmarks [v.curVis];
+        f.bookmarksToCookie ();
+        f.bookmarksShow ();
     })
 
-}; // end _.initBookmarks
+}; // end f.initBookmarks
 
 
 //---------------------
-_.initStyle = () => {
+f.initStyle = () => {
 
     var style = {style:
         "body {" +
@@ -234,23 +235,23 @@ _.initStyle = () => {
         "}",
         parent: 'head'};
 
-        _.dpp (style);
+        v.dpp (style);
 
-}; // end _.initStyle
+}; // end f.initStyle
 
 
 //---------------------
-_.bookmarkAdd = (slide) => {
+f.bookmarkAdd = (slide) => {
 
-    var bookmark = _.bookmarkLst [slide].replace (/-(.*)_/, '    $1    ');
-    var Id = _.dpp ({pre: bookmark, parent: _.IdBookS, name: slide, class: 'bookmark'})
+    var bookmark = v.bookmarkLst [slide].replace (/-(.*)_/, '    $1    ');
+    var Id = v.dpp ({pre: bookmark, parent: v.IdBookS, name: slide, class: 'bookmark'})
 
     $(Id)
     .click (function () {
         var n = $(this).attr ('name');
-        _.setNextVis (n - _.curVis);
+        f.setNextVis (n - v.curVis);
 
-        $(_.IdBookmarkS)
+        $(v.IdBookmarkS)
         .addClass ('novis');
     })
     .hover (
@@ -264,51 +265,51 @@ _.bookmarkAdd = (slide) => {
     });
 
 
-}; // end _.bookmarkAdd
+}; // end f.bookmarkAdd
 
 
 //---------------------
-_.bookmarksShow = () => {
+f.bookmarksShow = () => {
 
-    if (_.bookmarks.hasOwnProperty (_.curVis)) {
+    if (v.bookmarks.hasOwnProperty (v.curVis)) {
 
-        $(_.IdDelB)
+        $(v.IdDelB)
         .removeClass ('novis');
 
-        $(_.IdAddB)
+        $(v.IdAddB)
         .addClass ('novis');
 
     } else {
 
-        $(_.IdDelB)
+        $(v.IdDelB)
         .addClass ('novis');
 
-        $(_.IdAddB)
+        $(v.IdAddB)
         .removeClass ('novis');
 
-    } // end if (_.bookmarks.hasOwnProperty (_.curVis))
+    } // end if (v.bookmarks.hasOwnProperty (v.curVis))
 
-    $(_.IdBookS)
+    $(v.IdBookS)
     .empty ();
 
-    var slides = Object.keys (_.bookmarks).sort (function compareNumbers(a, b) {
+    var slides = Object.keys (v.bookmarks).sort (function compareNumbers(a, b) {
         return a - b;
     });
 
     if (slides.length > 0) {
 
-        _.dpp ({div: 'Week Topic SlideNum', parent: _.IdBookS, class: 'bookmark bookmarkheader'});
+        v.dpp ({div: 'Week Topic SlideNum', parent: v.IdBookS, class: 'bookmark bookmarkheader'});
 
     } // end if (slides.length > 0)
     
     for (var i = 0; i < slides.length; i++) {
 
         var slide = slides [i];
-        _.bookmarkAdd (slide);
+        f.bookmarkAdd (slide);
 
     } // end for (var i = 0; i < slides; i++)
 
-    $(_.IdBookmarkS)
+    $(v.IdBookmarkS)
     .removeClass ('novis')
         // actually show the bookmark
 
@@ -323,37 +324,37 @@ _.bookmarksShow = () => {
 
 
 
-}; // end _.bookmarksShow
+}; // end f.bookmarksShow
 
 
 //---------------------
-_.bookmarksFromCookie = () => {
+f.bookmarksFromCookie = () => {
     
     var bookmarksSfied = document.cookie.match (/m102bookmarks=([^;]+)/);
 
-    _.bookmarks = !bookmarksSfied ?  {} : JSON.parse (bookmarksSfied [1]);
+    v.bookmarks = !bookmarksSfied ?  {} : JSON.parse (bookmarksSfied [1]);
 
-}; // end _.bookmarksFromCookie
+}; // end f.bookmarksFromCookie
 
 
 //---------------------
-_.bookmarksToCookie = () => {
+f.bookmarksToCookie = () => {
     
-    var cookie = 'm102bookmarks=' + JSON.stringify (_.bookmarks) + '; expires=Thu, 1 Jan 2030 00:00:00 UTC; path=/';
+    var cookie = 'm102bookmarks=' + JSON.stringify (v.bookmarks) + '; expires=Thu, 1 Jan 2030 00:00:00 UTC; path=/';
     document.cookie = cookie;
 
-}; // end _.bookmarks2Cookie
+}; // end f.bookmarksToCookie
 
 
 //---------------------
-_.displayNav = () => {
+f.displayNav = () => {
 
     var navSpans = [{span: '>', id: 'navr', class: 'nav'},
     {span: '<', id: 'navl', class: 'nav'}];
 
-    navSpans.parent = _.IdNavPN;
+    navSpans.parent = v.IdNavPN;
 
-    _.dpp (navSpans);
+    v.dpp (navSpans);
 
     $('#navl, #navr')
     .hover (
@@ -369,35 +370,35 @@ _.displayNav = () => {
     $('#navl')
     .click (
         function () {
-            _.setNextVis (-1);
+            f.setNextVis (-1);
     });
 
     $('#navr')
     .click (
         function () {
-            _.setNextVis (1);
+            f.setNextVis (1);
     });
 
 
-}; // end _.displayNav
+}; // end f.displayNav
 
 
 //---------------------
-_.displayPngFiles = (vals) => {
+f.displayPngFiles = (vals) => {
 
-    _.curVis = 0;
-    _.maxImages = vals.length - 1;
+    v.curVis = 0;
+    v.maxImages = vals.length - 1;
         // last val in vals is an empty string, so don't count it
 
     var weeks = {};
     var topics;
 
-    _.ctI = [];
-    _.topicsI = [];
-    _.topicRefs = [];
-    _.slideToVideo = [];
+    v.ctI = [];
+    v.topicsI = [];
+    v.topicRefs = [];
+    v.slideToVideo = [];
 
-    for (var i = 0; i < _.maxImages; i++) {
+    for (var i = 0; i < v.maxImages; i++) {
 
         var val = vals [i];
 
@@ -422,8 +423,8 @@ _.displayPngFiles = (vals) => {
 
         } // end if (i !=== 0)
 
-        divOb.parent = _.IdSlides;
-        _.dpp (divOb);
+        divOb.parent = v.IdSlides;
+        v.dpp (divOb);
 
         matched = loc.match (/W(\d)(.*?)\/(.*)/);
 
@@ -432,11 +433,11 @@ _.displayPngFiles = (vals) => {
         var topic = matched [3];
 
         var videoTopic = wid + '-' + topic;
-        _.slideToVideo.push (_.topicToVideo [videoTopic]);
+        v.slideToVideo.push (v.topicToVideo [videoTopic]);
 
         if (!weeks.hasOwnProperty (week)) {
 
-            _.displayRef (wid, week, i, 'week');
+            f.displayRef (wid, week, i, 'week');
             weeks [week] = 1;
             topics = {};
 
@@ -445,46 +446,46 @@ _.displayPngFiles = (vals) => {
         var slideCount;
         if (!topics.hasOwnProperty (topic)) {
 
-            var dispRef = _.displayRef (wid, topic, i, 'topic');
-            _.topicRefs.push (dispRef);
+            var dispRef = f.displayRef (wid, topic, i, 'topic');
+            v.topicRefs.push (dispRef);
 
             if (topic === '05_StorageEngineWiredTiger') {
 
-                _.IdSampleTopic = dispRef;
+                v.IdSampleTopic = dispRef;
 
             } // end if (topic === '01_WelcomeWeek3')
 
             topics [topic] = 1;
 
             slideCount = 1;
-            _.topicsI.push (slideCount);
+            v.topicsI.push (slideCount);
 
         } else {
 
             slideCount++;
-            _.topicsI [_.topicsI.length - 1] = slideCount;
+            v.topicsI [v.topicsI.length - 1] = slideCount;
 
         } // end if (!topics.hasOwnProperty (topic))
 
         var bookmarkName = videoTopic + '_' + slideCount;;
-        _.bookmarkLst.push (bookmarkName);
+        v.bookmarkLst.push (bookmarkName);
 
-        _.ctI.push ([slideCount, _.topicsI.length - 1]);
+        v.ctI.push ([slideCount, v.topicsI.length - 1]);
 
 
     } // end for (var i = 0; i < vals; i++)
 
-    _.setNextVis (0);
+    f.setNextVis (0);
 
-}; // end _.displayPngFiles
+}; // end f.displayPngFiles
 
 
 //---------------------
-_.displayRef = (wid, str, i, className) => {
+f.displayRef = (wid, str, i, className) => {
 
     wid = '#' + wid;
-    var ref = _.genId ();
-    _.dpp ({div:
+    var ref = v.genId ();
+    v.dpp ({div:
         {div: str,
          id: ref,
          sl: i,
@@ -495,7 +496,7 @@ _.displayRef = (wid, str, i, className) => {
     $(ref)
     .click (function () {
         var n = $(this).attr ('sl');
-        _.setNextVis (n - _.curVis);
+        f.setNextVis (n - v.curVis);
     })
 
     $(ref)
@@ -514,17 +515,17 @@ _.displayRef = (wid, str, i, className) => {
 
     return ref;
 
-}; // end _.displayRef
+}; // end f.displayRef
 
 
 //---------------------
-_.doSlideShow = (vals) => {
+f.doSlideShow = (vals) => {
 
-    _.layout ();
-    _.displayNav ();
-    _.displayPngFiles (vals);
+    f.layout ();
+    f.displayNav ();
+    f.displayPngFiles (vals);
 
-    $(_.IdVideo)
+    $(v.IdVideo)
     .hover (function () {
         $(this)
         .attr ({style: 'color: red;'})
@@ -533,35 +534,35 @@ _.doSlideShow = (vals) => {
         $(this)
         .attr ({style: 'color: blue'})
     })
-    .click (_.playVideo);
+    .click (f.playVideo);
 
-    _.pi.createPopupDisplay ('#navr',
+    v.pi.createPopupDisplay ('#navr',
         'Click Prev/Next Slide\n    -- or --\n(keyboard shortcuts)\nLeft/Right Arrow\nSpace/Backspace');
-    _.pi.createPopupDisplay (_.IdSampleTopic,
+    v.pi.createPopupDisplay (v.IdSampleTopic,
         'Click to navigate directly\nto beginning of topic');
-    _.pi.createPopupDisplay (_.IdCurSlide,
+    v.pi.createPopupDisplay (v.IdCurSlide,
         'Current slide In topic/\nTotal slides in topic');
-    _.pi.createPopupDisplay (_.IdVideo,
+    v.pi.createPopupDisplay (v.IdVideo,
         'Click to start\nplaying lesson video');
 
-    $(_.IdHelp)
+    $(v.IdHelp)
     .hover (function () {
         $(this)
         .css ({'background-color': '#ffa0a0'});
 
-        _.pi.showPopups ();
+        v.pi.showPopups ();
     }, function () {
         $(this)
         .css ({'background-color': '#0e0'});
 
-        _.pi.hidePopups ();
+        v.pi.hidePopups ();
     });
 
-    $(_.IdBookmark)
+    $(v.IdBookmark)
     .hover (function () {
         $(this)
         .css ({'background-color': '#ffa0a0'});
-        _.bookmarksShow ();
+        f.bookmarksShow ();
 
     }, function () {
         $(this)
@@ -569,36 +570,36 @@ _.doSlideShow = (vals) => {
 
     });
 
-}; // end _.doSlideShow
+}; // end f.doSlideShow
 
 //---------------------
-_.keyFilter = (chob) => {
+f.keyFilter = (chob) => {
     //console.log ('chob: ' + JSON.stringify (chob) + '\n');
 
     var ch = chob.ch;
     if (ch === 'Right' || ch === ' ') {
 
-        _.setNextVis (1);
+        f.setNextVis (1);
 
     } else if (ch === 'Left' || ch === 'Backspace') {
 
-        _.setNextVis (-1);
+        f.setNextVis (-1);
 
     } // end if (chob.ch === 'Right')
 
 
-}; // end _.keyFilter
+}; // end f.keyFilter
 
 
 //---------------------
-_.layout = () => {
+f.layout = () => {
 
-    var IdContainer = _.dpp ({div: 0, class: 'w700 m10'});
+    var IdContainer = v.dpp ({div: 0, class: 'w700 m10'});
 
-    var idBookmark = _.genId ();
+    var idBookmark = v.genId ();
 
-    var idHelp = _.genId ();
-    _.dpp ({div:
+    var idHelp = v.genId ();
+    v.dpp ({div:
         {h4: [
             'Slideshow M102: MongoDB for DBAs (Jan/Feb 2017)',
             {div: {span: '?', class: 'symbol'}, id: idHelp, class: 'symbolwrap'},
@@ -608,35 +609,35 @@ _.layout = () => {
         parent: IdContainer}
     );
 
-    _.IdBookmark = '#' + idBookmark;
-    _.initBookmarks ();
+    v.IdBookmark = '#' + idBookmark;
+    f.initBookmarks ();
 
-    _.IdHelp = '#' + idHelp;
+    v.IdHelp = '#' + idHelp;
 
-    _.IdSlides = _.dpp ({div: 0, name: 'slides', class: 'row w700 prel', parent: IdContainer});
+    v.IdSlides = v.dpp ({div: 0, name: 'slides', class: 'row w700 prel', parent: IdContainer});
 
-    var IdNav = _.dpp ({div:0, name: 'nav', class: 'row w700 prel t40', parent: IdContainer});
+    var IdNav = v.dpp ({div:0, name: 'nav', class: 'row w700 prel t40', parent: IdContainer});
 
-    var IdVideoDiv = _.dpp ({div:0, class: 'col-sm-7', parent: IdNav});
-    _.IdVideo = _.dpp ({span: 'Video', parent: IdVideoDiv, class: 'navpos video'});
+    var IdVideoDiv = v.dpp ({div:0, class: 'col-sm-7', parent: IdNav});
+    v.IdVideo = v.dpp ({span: 'Video', parent: IdVideoDiv, class: 'navpos video'});
 
-    _.IdPageCt = _.dpp ({div:0, class: 'col-sm-2', parent: IdNav});
+    v.IdPageCt = v.dpp ({div:0, class: 'col-sm-2', parent: IdNav});
 
-    _.IdNavPN = _.dpp ({div:0, class: 'col-sm-3', parent: IdNav});
+    v.IdNavPN = v.dpp ({div:0, class: 'col-sm-3', parent: IdNav});
 
-    var IdTopicRows = _.dpp ({div:0, name: 'topicRows', parent: IdContainer, class: 'w700 prel t40'});
+    var IdTopicRows = v.dpp ({div:0, name: 'topicRows', parent: IdContainer, class: 'w700 prel t40'});
 
-    var IdRow1 = _.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: IdTopicRows})
-    var IdRow2 = _.dpp ({div: 0, name: 'topicRows2', class: 'row topicrows', parent: IdTopicRows})
+    var IdRow1 = v.dpp ({div: 0, name: 'topicRows1', class: 'row topicrows', parent: IdTopicRows})
+    var IdRow2 = v.dpp ({div: 0, name: 'topicRows2', class: 'row topicrows', parent: IdTopicRows})
 
-    _.makeCols (0, IdRow1, 4);
-    _.makeCols (4, IdRow2, 3);
+    f.makeCols (0, IdRow1, 4);
+    f.makeCols (4, IdRow2, 3);
 
-}; // end _.layout
+}; // end f.layout
 
 
 //---------------------
-_.makeCols = (baseId, IdRow, numCols) => {
+f.makeCols = (baseId, IdRow, numCols) => {
 
     var cols = [];
     for (var i = 0; i < numCols; i++) {
@@ -646,68 +647,68 @@ _.makeCols = (baseId, IdRow, numCols) => {
 
     } // end for (var i = 0; i < 4; i++)
 
-    _.dpp (cols);
+    v.dpp (cols);
 
-}; // end _.makeCols
+}; // end f.makeCols
 
 
 //---------------------
-_.playVideo = () => {
+f.playVideo = () => {
 
-    _.hiddenSlide = '#j' + _.curVis;
+    v.hiddenSlide = '#j' + v.curVis;
 
-    $(_.hiddenSlide + '> img')
+    $(v.hiddenSlide + '> img')
     .addClass ('novis');
 
-    $(_.hiddenSlide + '> .caption')
+    $(v.hiddenSlide + '> .caption')
     .addClass ('novis');
 
-    $(_.IdVideo)
+    $(v.IdVideo)
     .text ('Slide')
     .off ('click')
-    .click (_.restoreSlide);
+    .click (f.restoreSlide);
 
-    var src = 'https://www.youtube.com/embed/' + _.slideToVideo [_.curVis] + '?autoplay=1';
-    _.IdVideoPlaying = _.dpp ({iframe: 0, src: src, class: 'imgvideo', parent: _.hiddenSlide, prepend: 1});
+    var src = 'https://www.youtube.com/embed/' + v.slideToVideo [v.curVis] + '?autoplay=1';
+    v.IdVideoPlaying = v.dpp ({iframe: 0, src: src, class: 'imgvideo', parent: v.hiddenSlide, prepend: 1});
 
-}; // end _.playVideo
+}; // end f.playVideo
 
 
 //---------------------
-_.restoreSlide = () => {
+f.restoreSlide = () => {
 
-    $(_.IdVideoPlaying)
+    $(v.IdVideoPlaying)
     .remove ();
 
-    $(_.hiddenSlide + '> img')
+    $(v.hiddenSlide + '> img')
     .removeClass ('novis');
 
-    $(_.hiddenSlide + '> .caption')
+    $(v.hiddenSlide + '> .caption')
     .removeClass ('novis');
 
-    $(_.IdVideo)
+    $(v.IdVideo)
     .text ('Video')
     .off ('click')
-    .click (_.playVideo);
+    .click (f.playVideo);
 
-    _.hiddenSlide = null;
+    v.hiddenSlide = null;
 
-}; // end _.restoreSlide
+}; // end f.restoreSlide
 
 //---------------------
-_.setNextVis = (delta) => {
+f.setNextVis = (delta) => {
 
-    if (_.hiddenSlide) {
+    if (v.hiddenSlide) {
 
-        _.restoreSlide ();
+        f.restoreSlide ();
 
-    } // end if (_.hiddenSlide)
+    } // end if (v.hiddenSlide)
 
-    var mdelta = delta >= 0 ? delta : _.maxImages + delta
+    var mdelta = delta >= 0 ? delta : v.maxImages + delta
 
-    var nextVis = (_.curVis + mdelta) % _.maxImages;
+    var nextVis = (v.curVis + mdelta) % v.maxImages;
 
-    var IdPrev = '#j' + _.curVis;
+    var IdPrev = '#j' + v.curVis;
     var IdNext = '#j' + nextVis;
 
     $(IdPrev)
@@ -716,40 +717,40 @@ _.setNextVis = (delta) => {
     $(IdNext)
     .removeClass ('novis');
 
-    _.curVis = nextVis;
+    v.curVis = nextVis;
 
-    var ctRef = _.ctI [nextVis];
+    var ctRef = v.ctI [nextVis];
 
     var slideI = ctRef [0];
     var topicIdx = ctRef [1];
-    var totalInSection = _.topicsI [topicIdx];
+    var totalInSection = v.topicsI [topicIdx];
 
-    _.dpp ({empty: _.IdPageCt});
-    _.IdCurSlide = _.dpp ({span: 'slide: ' + slideI + '/' + totalInSection,
-        parent: _.IdPageCt,
+    v.dpp ({empty: v.IdPageCt});
+    v.IdCurSlide = v.dpp ({span: 'slide: ' + slideI + '/' + totalInSection,
+        parent: v.IdPageCt,
         class: 'navpos'});
 
-    $(_.topicRef)
+    $(v.topicRef)
     .css (
         {'background-color': '#fff',
         'font-weight': 'normal'}
     );
 
-    _.topicRef = _.topicRefs [topicIdx];
+    v.topicRef = v.topicRefs [topicIdx];
 
-    $(_.topicRef)
+    $(v.topicRef)
     .css (
         {'background-color': '#d6ffd6',
         'font-weight': 'bold'}
     );
 
-}; // end _.setNextVis
+}; // end f.setNextVis
 
 
 //---------------------
-_.topicToVideoId = (aTagA) => {
+f.topicToVideoId = (aTagA) => {
 
-    _.topicToVideo = {};
+    v.topicToVideo = {};
     for (var i = 0; i < aTagA.length; i++) {
 
         var aTag = aTagA [i];
@@ -759,7 +760,7 @@ _.topicToVideoId = (aTagA) => {
             var videoId = m [1];
             var topic = m [2];
 
-            _.topicToVideo [topic] = videoId;
+            v.topicToVideo [topic] = videoId;
 
         } // end if (m)
 
@@ -767,7 +768,7 @@ _.topicToVideoId = (aTagA) => {
     } // end for (var i = 0; i < aTagA; i++)
 
 
-}; // end _.topicToVideoId
+}; // end f.topicToVideoId
 
 
 
@@ -778,21 +779,21 @@ var P = {};
 P.doAction = (msgOb) => {
     console.log ('msgOb: ' + JSON.stringify (msgOb) + '\n');
 
-    var cmd = _.key1 (msgOb);
+    var cmd = v.key1 (msgOb);
     var vals = msgOb [cmd];
 
     switch (cmd) {
 
         case 'ready':
 
-            _.initStyle ();
-            _.ws.toSrvr ({getVideoLinks:1});
+            f.initStyle ();
+            v.ws.toSrvr ({getVideoLinks:1});
             break;
 
         case 'videoLinks':
 
-            _.topicToVideoId (vals);
-            _.ws.toSrvr ({getPngFiles:1});
+            f.topicToVideoId (vals);
+            v.ws.toSrvr ({getPngFiles:1});
             break;
 
         case 'pngFiles':
@@ -800,7 +801,7 @@ P.doAction = (msgOb) => {
             $('body')
             .empty ();
 
-            _.doSlideShow (vals);
+            f.doSlideShow (vals);
 
             break;
 
@@ -813,7 +814,7 @@ P.doAction = (msgOb) => {
 
 // end PUBLIC section
 
-_.init ();
+f.init ();
 
 return P;
 

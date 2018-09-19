@@ -5,7 +5,7 @@
 module.exports = function () {
 
 // PRIVATE Properties/Methods
-var _ = {
+var v = {
 
     fs: require ('fs'),
     ws: require ('go-ws-server'),
@@ -13,27 +13,28 @@ var _ = {
     toClient: null
 
 }; // end PRIVATE properties
+var f={};
 //---------------------
-_.init = () => {
+f.init = () => {
     
     var options = {doEncryption: false,
         verbose: false,
         isSecure: false};
 
-    _.ws = new _.ws (8001, _.action, options);
+    v.ws = new v.ws (8001, f.action, options);
 
-    _.toClient = _.ws.toClient;
+    v.toClient = v.ws.toClient;
 
     return;
 
-}; // end _.init
+}; // end f.init
 
 //---------------------
-_.action = (wsId, msgOb) => {
-    console.log ('====]>  lrGofer.js._.action.msgOb: ' + JSON.stringify (msgOb));
+f.action = (wsId, msgOb) => {
+    console.log ('====]>  lrGofer.js.f.action.msgOb: ' + JSON.stringify (msgOb));
     console.log ('    wsId: ' + wsId);
     
-    var cmd = _.key1 (msgOb);
+    var cmd = v.key1 (msgOb);
         console.log ('cmd: ' + JSON.stringify (cmd) + '\n');
 
     switch (cmd) {
@@ -41,34 +42,34 @@ _.action = (wsId, msgOb) => {
         case 'initConnection':
 
             var ready = {ready:1};
-            _.toClient (wsId, ready);
+            v.toClient (wsId, ready);
             break;
 
         case 'getPngFiles':
 
-            var pngFiles = _.fs.readFileSync ('./pngFiles','utf8');
+            var pngFiles = v.fs.readFileSync ('./pngFiles','utf8');
             var pngFilesA = pngFiles.split ('\n');
-            _.toClient (wsId, {pngFiles: pngFilesA});
+            v.toClient (wsId, {pngFiles: pngFilesA});
 
             break;
 
         case 'getVideoLinks':
 
-            var videoLinks = _.fs.readFileSync ('./videoLinks.html','utf8');
+            var videoLinks = v.fs.readFileSync ('./videoLinks.html','utf8');
             var videoLinksA = videoLinks.split ('\n');
-            _.toClient (wsId, {videoLinks: videoLinksA});
+            v.toClient (wsId, {videoLinks: videoLinksA});
 
             break;
 
     } // end switch (cmd)
     
 
-    //_.toClient (wsId, nextAction);
+    //v.toClient (wsId, nextAction);
 
-}; // end _.action 
+}; // end f.action 
 
 
-_.init ();
+f.init ();
 
 }();
 

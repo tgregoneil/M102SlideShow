@@ -4,14 +4,15 @@
 module.exports = (function () {
 
 // PRIVATE Properties/Methods
-var _ = {
+var v = {
 }; // end PRIVATE properties
+var f={};
 
-_.init = () => {
+f.init = () => {
 
     var c = require ('./slideShow.js');
     new c ();
-};
+};  // end f.init
 
 // PUBLIC Properties/Methods
 var P = {};
@@ -20,7 +21,7 @@ var P = {};
 
 (function () {
 
-    $(document).ready (_.init);
+    $(document).ready (f.init);
 
 }) ();
 
