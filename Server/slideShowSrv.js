@@ -31,7 +31,7 @@ f.init = () => {
 
 //---------------------
 f.action = (wsId, msgOb) => {
-    console.log ('====]>  lrGofer.js.f.action.msgOb: ' + JSON.stringify (msgOb));
+    console.log ('====]>  msgOb: ' + JSON.stringify (msgOb));
     console.log ('    wsId: ' + wsId);
     
     var cmd = v.key1 (msgOb);
